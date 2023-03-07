@@ -1,0 +1,13 @@
+/**
+* And gate
+* if (a==1 and b==1) 
+* then out=1 else out=0
+*/
+
+CHIP And{
+  IN in;
+  OUT out;
+
+  PARTS:
+  
+}
