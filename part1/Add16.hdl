@@ -1,0 +1,17 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/Add16.hdl
+
+/**
+ * Adds two 16-bit values.
+ * If an overflow occurs (The most significant carry bit is 1), over is set to 1.
+ */
+
+CHIP Add16 {
+    IN a[16], b[16];
+    OUT out[16], over;
+
+    PARTS:
+   // Put you code here:
+}
