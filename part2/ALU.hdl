@@ -65,5 +65,4 @@ CHIP ALU {
     And16(a[0..15]=true,b=oo,out[15]=ng,out[0..14]=drop);
 
     Or16(a=oo,b[0..15]=false,out=out);
-    }
 }
