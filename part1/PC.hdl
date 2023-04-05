@@ -20,5 +20,5 @@ CHIP PC {
     Mux16(a=inInc, b=outInc, sel=inc, out=incSelOut);
     Mux16(a=incSelOut, b=in, sel=load, out=loadSelOut);
     Mux16(a=loadSelOut, b[0..15]=false, sel=reset, out=this);
-    Register(in=this, load=true, out=inInc);
+    Register(in=this, load=true, out=inInc, out=out);
 }
