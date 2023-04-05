@@ -16,18 +16,6 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
-    /**
- * 16-bit program counter implementation
- */
-
-CHIP ProgramCounter {
-    IN in[16],  // input bus for the new memory address to load
-       load,    // load signal indicating whether to load the input bus value
-       inc;     // increment signal indicating whether to increment the current value
-    OUT out[16]; // output bus for the current memory address value
-    
-    PARTS:
     // internal 16-bit register
     Register(in=out, load=or(load, not(inc)), out=out);
     
