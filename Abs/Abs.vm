@@ -2,8 +2,19 @@
 // x & y are static variables
 
 // Put your code here.
+push constant 0
+push static 0
+lt
 
+if-goto LOL
+push static 0
+neg
+pop static 1
+goto END
 
+label LOL
+push static 0
+pop static 1
 
 label END
 goto END
