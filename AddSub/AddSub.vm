@@ -1,0 +1,10 @@
+// Calculates x = (a + b) - x
+// a & b are local variables
+// x is a static variable
+
+// Put your code here.
+
+
+
+label END
+goto END

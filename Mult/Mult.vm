@@ -1,0 +1,10 @@
+// Calculates a = x*y
+// a is a local variable
+// x & y are static variables
+
+// Put your code here.
+
+
+
+label END
+goto END
