@@ -3,7 +3,17 @@
 
 // Put your code here.
 
-
+//make x = 0 && push x & y
+push 0
+pop static 0
+push static 0
+push static 1
+lt
+neg
+if goto-POSITIVE
+//if y is greater than x
+label POSITIVE
+add
 
 label END
 goto END

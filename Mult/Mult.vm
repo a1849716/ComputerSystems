@@ -4,7 +4,29 @@
 
 // Put your code here.
 
-
+push 0
+pop sum
+push 0
+pop i
+label WHILE_LOOP
+push i
+push y
+lt
+neg
+if-goto WHILE_END
+push sum
+push x
+add
+pop sum
+push i
+push 1
+add
+pop i
+push 1
+add pop i
+goto WHILE_LOOP
+label WHILE END
+push sum
 
 label END
 goto END
