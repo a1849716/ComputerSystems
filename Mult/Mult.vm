@@ -4,29 +4,40 @@
 
 // Put your code here.
 
-push 0
-pop sum
-push 0
-pop i
+// x = static 0, y = static 1, a = local 0, temp_x = local 1
+
+//make a = 0
+push constant 0
+pop local 0
+
+//make temp_x = local 1
+push static 0
+pop local 1
+
+//start of while loop
 label WHILE_LOOP
-push i
-push y
-lt
-neg
-if-goto WHILE_END
-push sum
-push x
-add
-pop sum
-push i
-push 1
-add
-pop i
-push 1
-add pop i
+  //if x = 0, end loop
+  push local 1
+  push constant 0
+  eq
+  if-goto WHILE_END
+
+  //add y to a
+  push local 0
+  push static 1
+  add
+  pop local 0
+
+  //subtract 1 from temp_x
+  push local 1
+  push constant 1
+  sub
+  pop local 1
 goto WHILE_LOOP
-label WHILE END
-push sum
+
+label WHILE_END
+  push constant 2
+  pop local 1
 
 label END
 goto END
