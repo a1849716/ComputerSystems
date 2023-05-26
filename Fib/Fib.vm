@@ -1,5 +1,9 @@
 // Contains a function Fib.fib that calculates and returns the nth Fibonacci number recursively
 // n is supplied as an argument
 
+function Fib.fib(n)
+  push argument 0
+  
+
 // Put your code here.
 
