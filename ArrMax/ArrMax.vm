@@ -15,7 +15,7 @@ push argument 1
 pop local 0
 
 //local 1 = curr_max
-push constant 0
+push this 0
 pop local 1
 
 //start of while loop
@@ -23,7 +23,7 @@ label WHILE_LOOP
   //if length = 0, end loop
   push local 0
   push constant 0
-  lt
+  eq
   if-goto WHILE_END
 
   //do stuff here
