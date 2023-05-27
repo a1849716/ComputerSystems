@@ -10,8 +10,19 @@
 push constant 0
 pop local 0
 
-//make temp_x = local 1
+//make temp_x = local 1 using abs
 push static 0
+push constant 0
+lt
+if-goto IS_NEGATIVE
+//else
+push static 0
+pop local 1
+goto WHILE_LOOP
+
+label IS_NEGATIVE
+push static 0
+neg
 pop local 1
 
 //start of while loop
@@ -38,6 +49,14 @@ goto WHILE_LOOP
 label WHILE_END
   push constant 2
   pop local 1
+
+push static 0
+push constant 0
+gt
+if-goto END
+push local 0
+neg
+pop local 0
 
 label END
 goto END
