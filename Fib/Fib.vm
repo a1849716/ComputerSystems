@@ -1,9 +1,30 @@
 // Contains a function Fib.fib that calculates and returns the nth Fibonacci number recursively
 // n is supplied as an argument
 
-function Fib.fib(n)
-  push argument 0
-  
+function Fib.fib 1
+// if n < 2
+push argument 0
+push constant 2
+lt
+if-goto DIE
 
-// Put your code here.
+// n - 1
+push argument 0
+push constant 1
+sub
+call Fib.fib 1
+
+//n - 2
+push argument 0
+push constant 2
+sub
+call Fib.fib 1
+
+add
+return
+
+label DIE
+push argument 0
+return
+
 
