@@ -8,6 +8,11 @@
 #include "Token.h"
 
 class CompilerParser {
+    private:
+    std::list<Token*> tokenList;
+    Token* currentToken;
+    ParseTree* tree;
+    ParseTree* child;
     public:
         CompilerParser(std::list<Token*> tokens);
 
