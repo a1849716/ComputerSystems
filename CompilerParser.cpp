@@ -49,17 +49,16 @@ ParseTree* CompilerParser::compileClass() {
       tree->addChild(new ParseTree("identifier", "Main"));
       if (mustBe("symbol", "{")) {
         tree->addChild(new ParseTree("symbol", "{"));
-        tree->addChild(new ParseTree("classVarDec", ""));
-        tree->addChild(compileClassVarDec());
-      }
-      if (mustBe("symbol", "}")){
-        return tree;
+        //tree->addChild(compileClassVarDec());
+        if (mustBe("symbol", "}")) {
+          tree->addChild(new ParseTree("symbol", "}"));
+          return tree;
+        } else {
+        }
       }
     }
-  } else {
     throw ParseException();
   }
-
   return NULL;
 }
 
@@ -90,31 +89,46 @@ ParseTree* CompilerParser::compileClassVarDec() {
  * Generates a parse tree for a method, function, or constructor
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileSubroutine() { return NULL; }
+ParseTree* CompilerParser::compileSubroutine() {
+  tree = new ParseTree("compileSubroutine", "");
+
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a subroutine's parameters
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileParameterList() { return NULL; }
+ParseTree* CompilerParser::compileParameterList() { 
+  tree = new ParseTree("ParameterList", "");
+  throw ParseException();
+  return NULL; }
 
 /**
  * Generates a parse tree for a subroutine's body
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileSubroutineBody() { return NULL; }
+ParseTree* CompilerParser::compileSubroutineBody() { 
+  throw ParseException();
+  return NULL; }
 
 /**
  * Generates a parse tree for a subroutine variable declaration
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileVarDec() { return NULL; }
+ParseTree* CompilerParser::compileVarDec() {
+  tree = new ParseTree("VarDec", "");
+  throw ParseException();
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a series of statements
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileStatements() { return NULL; }
+ParseTree* CompilerParser::compileStatements() { 
+  throw ParseException();
+  return NULL; }
 
 /**
  * Generates a parse tree for a let statement
