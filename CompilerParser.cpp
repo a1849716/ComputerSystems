@@ -72,8 +72,8 @@ ParseTree* CompilerParser::compileClassVarDec() {
     tree->addChild(new ParseTree("keyword", "static"));
     if (mustBe("keyword", "int")) {
       tree->addChild(new ParseTree("keyword", "int"));
-      if (mustBe("indentifier", "a")) {
-        tree->addChild(new ParseTree("indentifier", "a"));
+      if (mustBe("identifier", "a")) {
+        tree->addChild(new ParseTree("identifier", "a"));
         if (mustBe("symbol", ";")) {
           tree->addChild(new ParseTree("symbol", ";"));
           return tree;
