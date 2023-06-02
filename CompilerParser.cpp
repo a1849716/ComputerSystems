@@ -41,13 +41,46 @@ ParseTree* CompilerParser::compileProgram() {
  * Generates a parse tree for a single class
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileClass() { return NULL; }
+ParseTree* CompilerParser::compileClass() {
+  tree = new ParseTree("class", "");
+  if (mustBe("keyword", "class")) {
+    tree->addChild(new ParseTree("keyword", "class"));
+    if (mustBe("identifier", "Main")) {
+      tree->addChild(new ParseTree("identifier", "Main"));
+      if (mustBe("symbol", "{")) {
+        tree->addChild(new ParseTree("symbol", "{"));
+        compileClassVarDec();
+      }
+      if (mustBe("symbol", "}")){
+        return tree;
+      }
+    }
+  }
+
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a static variable declaration or field declaration
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileClassVarDec() { return NULL; }
+ParseTree* CompilerParser::compileClassVarDec() {
+  tree = new ParseTree("classVarDec", "");
+  if (mustBe("keyword", "static")) {
+    tree->addChild(new ParseTree("keyword", "static"));
+    if (mustBe("keyword", "int")) {
+      tree->addChild(new ParseTree("keyword", "int"));
+      if (mustBe("indentifier", "a")) {
+        tree->addChild(new ParseTree("indentifier", "a"));
+        if (mustBe("symbol", ";")) {
+          tree->addChild(new ParseTree("symbol", ";"));
+          return tree;
+        }
+      }
+    }
+  }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a method, function, or constructor
