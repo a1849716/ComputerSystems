@@ -49,7 +49,7 @@ ParseTree* CompilerParser::compileClass() {
       tree->addChild(new ParseTree("identifier", "Main"));
       if (mustBe("symbol", "{")) {
         tree->addChild(new ParseTree("symbol", "{"));
-        compileClassVarDec();
+        tree->addChild(compileClassVarDec());
       }
       if (mustBe("symbol", "}")){
         return tree;
