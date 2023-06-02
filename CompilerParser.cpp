@@ -51,7 +51,7 @@ ParseTree* CompilerParser::compileClass() {
       tree->addChild(new ParseTree("identifier", ""));
       if (mustBe(currentToken->getType(), currentToken->getValue())) {
         tree->addChild(new ParseTree("symbol", ""));
-        // tree->addChild(compileClassVarDec());
+        tree->addChild(compileClassVarDec());
         if (mustBe(currentToken->getType(), currentToken->getValue())) {
           tree->addChild(new ParseTree("symbol", ""));
           return tree;
