@@ -21,13 +21,13 @@ ParseTree* CompilerParser::compileProgram() {
   ParseTree* tree = new ParseTree("class", "");
   currentToken = mustBe("keyword", "");
   if (mustBe(currentToken->getType(), currentToken->getValue())) {
-    tree->addChild(new ParseTree("keyword", ""));
+    tree->addChild(new ParseTree("keyword", "class"));
     if (mustBe(currentToken->getType(), currentToken->getValue())) {
-      tree->addChild(new ParseTree("identifier", ""));
+      tree->addChild(new ParseTree("identifier", "Main"));
       if (mustBe(currentToken->getType(), currentToken->getValue())) {
-        tree->addChild(new ParseTree("symbol", ""));
+        tree->addChild(new ParseTree("symbol", "{"));
         if (mustBe(currentToken->getType(), currentToken->getValue())) {
-          tree->addChild(new ParseTree("symbol", ""));
+          tree->addChild(new ParseTree("symbol", "}"));
           return tree;
         }
       }
