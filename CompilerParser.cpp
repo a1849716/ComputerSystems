@@ -19,14 +19,15 @@ CompilerParser::CompilerParser(std::list<Token*> tokens) {
  */
 ParseTree* CompilerParser::compileProgram() {
   ParseTree* tree = new ParseTree("class", "");
-  if (mustBe("keyword", "class")) {
-    tree->addChild(new ParseTree("keyword", "class"));
-    if (mustBe("identifier", "Main")) {
-      tree->addChild(new ParseTree("identifier", "Main"));
-      if (mustBe("symbol", "{")) {
-        tree->addChild(new ParseTree("symbol", "{"));
-        if (mustBe("symbol", "}")) {
-          tree->addChild(new ParseTree("symbol", "}"));
+  currentToken = mustBe("keyword", "");
+  if (mustBe(currentToken->getType(), currentToken->getValue())) {
+    tree->addChild(new ParseTree("keyword", ""));
+    if (mustBe(currentToken->getType(), currentToken->getValue())) {
+      tree->addChild(new ParseTree("identifier", ""));
+      if (mustBe(currentToken->getType(), currentToken->getValue())) {
+        tree->addChild(new ParseTree("symbol", ""));
+        if (mustBe(currentToken->getType(), currentToken->getValue())) {
+          tree->addChild(new ParseTree("symbol", ""));
           return tree;
         }
       }
@@ -43,15 +44,16 @@ ParseTree* CompilerParser::compileProgram() {
  */
 ParseTree* CompilerParser::compileClass() {
   ParseTree* tree = new ParseTree("class", "");
-  if (mustBe("keyword", "class")) {
-    tree->addChild(new ParseTree("keyword", "class"));
-    if (mustBe("identifier", "Main")) {
-      tree->addChild(new ParseTree("identifier", "Main"));
-      if (mustBe("symbol", "{")) {
-        tree->addChild(new ParseTree("symbol", "{"));
+  currentToken = mustBe("keyword", "");
+  if (mustBe(currentToken->getType(), currentToken->getValue())) {
+    tree->addChild(new ParseTree("keyword", ""));
+    if (mustBe(currentToken->getType(), currentToken->getValue())) {
+      tree->addChild(new ParseTree("identifier", ""));
+      if (mustBe(currentToken->getType(), currentToken->getValue())) {
+        tree->addChild(new ParseTree("symbol", ""));
         // tree->addChild(compileClassVarDec());
-        if (mustBe("symbol", "}")) {
-          tree->addChild(new ParseTree("symbol", "}"));
+        if (mustBe(currentToken->getType(), currentToken->getValue())) {
+          tree->addChild(new ParseTree("symbol", ""));
           return tree;
         } else {
         }
@@ -68,6 +70,7 @@ ParseTree* CompilerParser::compileClass() {
  */
 ParseTree* CompilerParser::compileClassVarDec() {
   ParseTree* tree = new ParseTree("classVarDec", "");
+  currentToken = mustBe("keyword", "");
   if (mustBe("keyword", "static")) {
     tree->addChild(new ParseTree("keyword", "static"));
     if (mustBe("keyword", "int")) {
@@ -91,7 +94,7 @@ ParseTree* CompilerParser::compileClassVarDec() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileSubroutine() {
-  tree = new ParseTree("compileSubroutine", "");
+  ParseTree* tree = new ParseTree("compileSubroutine", "");
   throw ParseException();
   return NULL;
 }
@@ -101,7 +104,7 @@ ParseTree* CompilerParser::compileSubroutine() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileParameterList() {
-  tree = new ParseTree("ParameterList", "");
+  ParseTree* tree = new ParseTree("ParameterList", "");
   throw ParseException();
   return NULL;
 }
@@ -120,7 +123,7 @@ ParseTree* CompilerParser::compileSubroutineBody() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileVarDec() {
-  tree = new ParseTree("VarDec", "");
+  ParseTree* tree = new ParseTree("VarDec", "");
   throw ParseException();
   return NULL;
 }
@@ -139,7 +142,7 @@ ParseTree* CompilerParser::compileStatements() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileLet() {
-  tree = new ParseTree("letStatement", "");
+  ParseTree* tree = new ParseTree("letStatement", "");
   if (mustBe("keyword", "let")) {
     tree->addChild(new ParseTree("keyword", "let"));
     if (mustBe("identifier", "a")) {
