@@ -55,6 +55,8 @@ ParseTree* CompilerParser::compileClass() {
         return tree;
       }
     }
+  } else {
+    throw ParseException();
   }
 
   return NULL;
@@ -78,6 +80,8 @@ ParseTree* CompilerParser::compileClassVarDec() {
         }
       }
     }
+  } else {
+    throw ParseException();
   }
   return NULL;
 }
