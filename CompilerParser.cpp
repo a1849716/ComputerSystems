@@ -49,6 +49,7 @@ ParseTree* CompilerParser::compileClass() {
       tree->addChild(new ParseTree("identifier", "Main"));
       if (mustBe("symbol", "{")) {
         tree->addChild(new ParseTree("symbol", "{"));
+        tree->addChild(new ParseTree("classVarDec", ""));
         tree->addChild(compileClassVarDec());
       }
       if (mustBe("symbol", "}")){
@@ -67,7 +68,6 @@ ParseTree* CompilerParser::compileClass() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileClassVarDec() {
-  tree = new ParseTree("classVarDec", "");
   if (mustBe("keyword", "static")) {
     tree->addChild(new ParseTree("keyword", "static"));
     if (mustBe("keyword", "int")) {
