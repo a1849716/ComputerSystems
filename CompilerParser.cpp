@@ -18,7 +18,7 @@ CompilerParser::CompilerParser(std::list<Token*> tokens) {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileProgram() {
-  tree = new ParseTree("class", "");
+  ParseTree* tree = new ParseTree("class", "");
   if (mustBe("keyword", "class")) {
     tree->addChild(new ParseTree("keyword", "class"));
     if (mustBe("identifier", "Main")) {
@@ -42,7 +42,7 @@ ParseTree* CompilerParser::compileProgram() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileClass() {
-  tree = new ParseTree("class", "");
+  ParseTree* tree = new ParseTree("class", "");
   if (mustBe("keyword", "class")) {
     tree->addChild(new ParseTree("keyword", "class"));
     if (mustBe("identifier", "Main")) {
@@ -67,6 +67,7 @@ ParseTree* CompilerParser::compileClass() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileClassVarDec() {
+  ParseTree* tree = new ParseTree("classVarDec", "");
   if (mustBe("keyword", "static")) {
     tree->addChild(new ParseTree("keyword", "static"));
     if (mustBe("keyword", "int")) {

@@ -11,7 +11,6 @@ class CompilerParser {
     private:
     std::list<Token*> tokenList;
     Token* currentToken;
-    ParseTree* tree;
     public:
         CompilerParser(std::list<Token*> tokens);
 
