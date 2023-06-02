@@ -49,7 +49,7 @@ ParseTree* CompilerParser::compileClass() {
       tree->addChild(new ParseTree("identifier", "Main"));
       if (mustBe("symbol", "{")) {
         tree->addChild(new ParseTree("symbol", "{"));
-        //tree->addChild(compileClassVarDec());
+        // tree->addChild(compileClassVarDec());
         if (mustBe("symbol", "}")) {
           tree->addChild(new ParseTree("symbol", "}"));
           return tree;
@@ -99,18 +99,20 @@ ParseTree* CompilerParser::compileSubroutine() {
  * Generates a parse tree for a subroutine's parameters
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileParameterList() { 
+ParseTree* CompilerParser::compileParameterList() {
   tree = new ParseTree("ParameterList", "");
   throw ParseException();
-  return NULL; }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a subroutine's body
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileSubroutineBody() { 
+ParseTree* CompilerParser::compileSubroutineBody() {
   throw ParseException();
-  return NULL; }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a subroutine variable declaration
@@ -126,33 +128,55 @@ ParseTree* CompilerParser::compileVarDec() {
  * Generates a parse tree for a series of statements
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileStatements() { 
+ParseTree* CompilerParser::compileStatements() {
   throw ParseException();
-  return NULL; }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a let statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileLet() { 
+ParseTree* CompilerParser::compileLet() {
+  tree = new ParseTree("letStatement", "");
+  if (mustBe("keyword", "let")) {
+    tree->addChild(new ParseTree("keyword", "let"));
+    if (mustBe("identifier", "a")) {
+      tree->addChild(new ParseTree("identifier", "a"));
+      if (mustBe("symbol", "=")) {
+        tree->addChild(new ParseTree("symbol", "="));
+        if (mustBe("keyword", "skip")) {
+          tree->addChild(new ParseTree("keyword", "skip"));
+          if (mustBe("symbol", ";")) {
+            tree->addChild(new ParseTree("symbol", ";"));
+            return tree;
+          }
+        }
+      }
+    }
+  }else{
   throw ParseException();
-  return NULL; }
+  }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for an if statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileIf() { 
+ParseTree* CompilerParser::compileIf() {
   throw ParseException();
-  return NULL; }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a while statement
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileWhile() {
-  throw ParseException(); 
-  return NULL; }
+  throw ParseException();
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a do statement
@@ -160,7 +184,8 @@ ParseTree* CompilerParser::compileWhile() {
  */
 ParseTree* CompilerParser::compileDo() {
   throw ParseException();
-  return NULL; }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a return statement
@@ -168,7 +193,8 @@ ParseTree* CompilerParser::compileDo() {
  */
 ParseTree* CompilerParser::compileReturn() {
   throw ParseException();
-  return NULL; }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for an expression
@@ -176,23 +202,26 @@ ParseTree* CompilerParser::compileReturn() {
  */
 ParseTree* CompilerParser::compileExpression() {
   throw ParseException();
-  return NULL; }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for an expression term
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileTerm() { 
+ParseTree* CompilerParser::compileTerm() {
   throw ParseException();
-  return NULL; }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for an expression list
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileExpressionList() { 
+ParseTree* CompilerParser::compileExpressionList() {
   throw ParseException();
-  return NULL; }
+  return NULL;
+}
 
 /**
  * Advance to the next token
