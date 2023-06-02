@@ -18,7 +18,7 @@ CompilerParser::CompilerParser(std::list<Token*> tokens) {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileProgram() {
-  tree = new ParseTree("class", "keyword");
+  tree = new ParseTree("class", "");
   if (mustBe("keyword", "class")) {
     tree->addChild(new ParseTree("keyword", "class"));
     if (mustBe("identifier", "Main")) {
