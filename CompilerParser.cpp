@@ -91,7 +91,7 @@ ParseTree* CompilerParser::compileClassVarDec() {
  */
 ParseTree* CompilerParser::compileSubroutine() {
   tree = new ParseTree("compileSubroutine", "");
-
+  throw ParseException();
   return NULL;
 }
 
@@ -134,13 +134,17 @@ ParseTree* CompilerParser::compileStatements() {
  * Generates a parse tree for a let statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileLet() { return NULL; }
+ParseTree* CompilerParser::compileLet() { 
+  throw ParseException();
+  return NULL; }
 
 /**
  * Generates a parse tree for an if statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileIf() { return NULL; }
+ParseTree* CompilerParser::compileIf() { 
+  throw ParseException();
+  return NULL; }
 
 /**
  * Generates a parse tree for a while statement
