@@ -18,23 +18,21 @@ CompilerParser::CompilerParser(std::list<Token*> tokens) {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileProgram() {
-  tree = new ParseTree("keyword", "class");
+  tree = new ParseTree("class", "keyword");
   if (mustBe("keyword", "class")) {
+    tree->addChild(new ParseTree("keyword", "class"));
     if (mustBe("identifier", "Main")) {
-      child = new ParseTree("identifier", "Main");
-      tree->addChild(child);
+      tree->addChild(new ParseTree("identifier", "Main"));
       if (mustBe("symbol", "{")) {
-        child = new ParseTree("symbol", "{");
-        tree->addChild(child);
+        tree->addChild(new ParseTree("symbol", "{"));
         if (mustBe("symbol", "}")) {
-          child = new ParseTree("symbol", "}");
-          tree->addChild(child);
+          tree->addChild(new ParseTree("symbol", "}"));
           return tree;
         }
       }
     }
   } else {
-    throw new ParseException();
+    throw ParseException();
   }
   return NULL;
 }
@@ -181,7 +179,7 @@ Token* CompilerParser::mustBe(std::string expectedType,
     next();
     return currentToken;
   } else {
-    throw new ParseException();
+    throw ParseException();
   }
   return NULL;
 }
