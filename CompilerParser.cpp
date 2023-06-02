@@ -1,5 +1,7 @@
 #include "CompilerParser.h"
 
+#include <iostream>
+
 using namespace std;
 
 /**
@@ -8,7 +10,7 @@ using namespace std;
  */
 CompilerParser::CompilerParser(std::list<Token*> tokens) {
   this->tokenList = tokens;
-  currentToken = tokens.front();
+  currentToken = current();
 }
 
 /**
