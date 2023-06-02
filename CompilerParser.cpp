@@ -146,37 +146,49 @@ ParseTree* CompilerParser::compileIf() { return NULL; }
  * Generates a parse tree for a while statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileWhile() { return NULL; }
+ParseTree* CompilerParser::compileWhile() {
+  throw ParseException(); 
+  return NULL; }
 
 /**
  * Generates a parse tree for a do statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileDo() { return NULL; }
+ParseTree* CompilerParser::compileDo() {
+  throw ParseException();
+  return NULL; }
 
 /**
  * Generates a parse tree for a return statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileReturn() { return NULL; }
+ParseTree* CompilerParser::compileReturn() {
+  throw ParseException();
+  return NULL; }
 
 /**
  * Generates a parse tree for an expression
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileExpression() { return NULL; }
+ParseTree* CompilerParser::compileExpression() {
+  throw ParseException();
+  return NULL; }
 
 /**
  * Generates a parse tree for an expression term
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileTerm() { return NULL; }
+ParseTree* CompilerParser::compileTerm() { 
+  throw ParseException();
+  return NULL; }
 
 /**
  * Generates a parse tree for an expression list
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileExpressionList() { return NULL; }
+ParseTree* CompilerParser::compileExpressionList() { 
+  throw ParseException();
+  return NULL; }
 
 /**
  * Advance to the next token
