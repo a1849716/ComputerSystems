@@ -196,6 +196,30 @@ ParseTree* CompilerParser::compileVarDec() {
   currentToken = mustBe("identifier", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
+  while (current()->getType() == ",") {
+    currentToken = mustBe("symbol", ",");
+    tree->addChild(
+        new ParseTree(currentToken->getType(), currentToken->getValue()));
+    if (current()->getType() == "keyword") {
+      currentToken = mustBe("keyword", "");
+      tree->addChild(
+          new ParseTree(currentToken->getType(), currentToken->getValue()));
+    } else if (current()->getType() == "identifier") {
+      currentToken = mustBe("identifier", "");
+      tree->addChild(
+          new ParseTree(currentToken->getType(), currentToken->getValue()));
+    }
+
+    if (current()->getType() == "identifier") {
+      currentToken = mustBe("identifier", "");
+      tree->addChild(
+          new ParseTree(currentToken->getType(), currentToken->getValue()));
+    }
+
+    if (current() == NULL) {
+      break;
+    }
+  }
   currentToken = mustBe("symbol", ";");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
