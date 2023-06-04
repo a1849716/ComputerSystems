@@ -126,7 +126,6 @@ ParseTree* CompilerParser::compileParameterList() {
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
     next();
-    currentToken = current();
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
   };
