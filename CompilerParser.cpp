@@ -84,7 +84,14 @@ ParseTree* CompilerParser::compileClassVarDec() {
   currentToken = mustBe("identifier", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
+  if (current()->getValue() == ",") {
+    currentToken = mustBe("identifier", "");
+    tree->addChild(
+        new ParseTree(currentToken->getType(), currentToken->getValue()));
+  }
   currentToken = mustBe("symbol", "");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   return tree;
 }
 /**
