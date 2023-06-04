@@ -49,7 +49,7 @@ ParseTree* CompilerParser::compileClass() {
   currentToken = mustBe("identifier", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  currentToken = mustBe("symbol", "");
+  currentToken = mustBe("symbol", "{");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   // if the next value isnt a }
@@ -62,7 +62,7 @@ ParseTree* CompilerParser::compileClass() {
       tree->addChild(compileSubroutine());
     }
   }
-  currentToken = mustBe("symbol", "");
+  currentToken = mustBe("symbol", "}");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   return tree;
@@ -104,21 +104,24 @@ ParseTree* CompilerParser::compileSubroutine() {
   currentToken = mustBe("symbol", "(");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
+
   if (current()->getValue() != ")") {
     tree->addChild(compileParameterList());
   }
+
   currentToken = mustBe("symbol", ")");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("symbol", "{");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  compileSubroutineBody();
+  if (current()->getValue() != ")") {
+    tree->addChild(compileSubroutineBody());
+  }
   currentToken = mustBe("symbol", "}");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   return tree;
-  throw ParseException();
 }
 
 /**
