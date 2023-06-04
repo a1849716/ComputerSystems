@@ -56,8 +56,9 @@ ParseTree* CompilerParser::compileClass() {
   if (current()->getValue() != "}") {
     if (current()->getValue() == "static" || current()->getValue() == "field") {
       tree->addChild(compileClassVarDec());
-    }
-    else if(current()->getValue() == "function"|| current()->getValue() == "method" || current()->getValue() == "constructor"){
+    } else if (current()->getValue() == "function" ||
+               current()->getValue() == "method" ||
+               current()->getValue() == "constructor") {
       tree->addChild(compileSubroutine());
     }
   }
@@ -116,7 +117,6 @@ ParseTree* CompilerParser::compileSubroutine() {
   currentToken = mustBe("symbol", "}");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-
   return tree;
   throw ParseException();
 }
@@ -127,14 +127,38 @@ ParseTree* CompilerParser::compileSubroutine() {
  */
 ParseTree* CompilerParser::compileParameterList() {
   ParseTree* tree = new ParseTree("parameterList", "");
-  while (current()->getType() == "keyword" || current()->getValue() == ",") {
+  currentToken = mustBe("keyword", "");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("identifier", "");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  if (current() == NULL) {
+    return tree;
+  }
+
+  while (current()->getValue() == ",") {
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
     next();
+
+    if (current()->getType() == "keyword" ||
+        current()->getType() == "identifier") {
+      currentToken = mustBe("", "");
+      tree->addChild(
+          new ParseTree(currentToken->getType(), currentToken->getValue()));
+    } else {
+      break;
+    }
+
+    currentToken = mustBe("identifier", "");
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
-  };
-  return tree;
+
+    if (current() == NULL) {
+      break;
+    }
+  }
 }
 
 /**
