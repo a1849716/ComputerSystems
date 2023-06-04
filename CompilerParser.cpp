@@ -113,7 +113,7 @@ ParseTree* CompilerParser::compileSubroutine() {
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   compileSubroutineBody();
-  currentToken = mustBe("keyword", "");
+  currentToken = mustBe("symbol", "}");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
 
