@@ -56,9 +56,10 @@ ParseTree* CompilerParser::compileClass() {
   if (current()->getValue() != "}") {
     if (current()->getValue() == "static" || current()->getValue() == "field") {
       tree->addChild(compileClassVarDec());
-    } else if (current()->getValue() == "function" ||
-               current()->getValue() == "method" ||
-               current()->getValue() == "constructor") {
+    }
+    if (current()->getValue() == "function" ||
+        current()->getValue() == "method" ||
+        current()->getValue() == "constructor") {
       tree->addChild(compileSubroutine());
     }
   }
