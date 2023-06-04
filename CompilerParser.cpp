@@ -54,7 +54,12 @@ ParseTree* CompilerParser::compileClass() {
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   // if the next value isnt a }
   if (current()->getValue() != "}") {
-    tree->addChild(compileClassVarDec());
+    if (current()->getValue() == "static" || current()->getValue() == "field") {
+      tree->addChild(compileClassVarDec());
+    }
+    else if(current()->getValue() == "function"|| current()->getValue() == "method" || current()->getValue() == "constructor"){
+      tree->addChild(compileSubroutine());
+    }
   }
   currentToken = mustBe("symbol", "");
   tree->addChild(
@@ -68,7 +73,7 @@ ParseTree* CompilerParser::compileClass() {
  */
 ParseTree* CompilerParser::compileClassVarDec() {
   ParseTree* tree = new ParseTree("classVarDec", "");
-  currentToken = mustBe("keyword", "");
+  currentToken = mustBe("keyword", "static");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("keyword", "");
