@@ -52,13 +52,14 @@ ParseTree* CompilerParser::compileClass() {
   currentToken = mustBe("symbol", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  tree->addChild(compileClassVarDec());
+  // if the next value isnt a }
+  if (current()->getValue() != "}") {
+    tree->addChild(compileClassVarDec());
+  }
   currentToken = mustBe("symbol", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   return tree;
-  throw ParseException();
-  return NULL;
 }
 
 /**
@@ -77,7 +78,7 @@ ParseTree* CompilerParser::compileClassVarDec() {
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("symbol", "");
-  return NULL;
+  return tree;
 }
 /**
  * Generates a parse tree for a method, function, or constructor
@@ -109,8 +110,8 @@ ParseTree* CompilerParser::compileSubroutine() {
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
 
+  return tree;
   throw ParseException();
-  return NULL;
 }
 
 /**
@@ -136,8 +137,8 @@ ParseTree* CompilerParser::compileSubroutineBody() {
   currentToken = mustBe("symbol", "}");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
+  return tree;
   throw ParseException();
-  return NULL;
 }
 
 /**
@@ -159,7 +160,7 @@ ParseTree* CompilerParser::compileVarDec() {
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
 
-  return NULL;
+  return tree;
 }
 
 /**
