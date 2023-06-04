@@ -84,7 +84,25 @@ ParseTree* CompilerParser::compileClassVarDec() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileSubroutine() {
-  ParseTree* tree = new ParseTree("compileSubroutine", "");
+  ParseTree* tree = new ParseTree("subroutine", "");
+  currentToken = mustBe("keyword", "function");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("keyword", "");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+  currentToken = mustBe("identifier", "");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+  currentToken = mustBe("symbol", "(");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+  compileParameterList();
+  currentToken = mustBe("symbol", ")");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+  currentToken = mustBe("symbol", "{");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+  compileSubroutineBody();
+  currentToken = mustBe("keyword", "");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+
   throw ParseException();
   return NULL;
 }
@@ -93,19 +111,45 @@ ParseTree* CompilerParser::compileSubroutine() {
  * Generates a parse tree for a subroutine's parameters
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileParameterList() { return NULL; }
+ParseTree* CompilerParser::compileParameterList() {
+  //while () {};
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a subroutine's body
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileSubroutineBody() { return NULL; }
+ParseTree* CompilerParser::compileSubroutineBody() {
+  ParseTree* tree = new ParseTree("subroutineBody", "");
+  currentToken = mustBe("symbol", "{");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  compileVarDec();
+  compileStatements();
+  currentToken = mustBe("symbol", "}");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+  throw ParseException();
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a subroutine variable declaration
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileVarDec() { return NULL; }
+ParseTree* CompilerParser::compileVarDec() {
+  ParseTree* tree = new ParseTree("varDec", "");
+  currentToken = mustBe("keyword", "");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+  currentToken = mustBe("keyword", "");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+  currentToken = mustBe("identifier", "");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+  currentToken = mustBe("symbol", ";");
+  new ParseTree(currentToken->getType(), currentToken->getValue());
+
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a series of statements
