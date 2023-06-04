@@ -109,9 +109,14 @@ ParseTree* CompilerParser::compileSubroutine() {
   currentToken = mustBe("keyword", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  currentToken = mustBe("identifier", "");
-  tree->addChild(
-      new ParseTree(currentToken->getType(), currentToken->getValue()));
+
+  if (current()->getType() == "identifier") {
+    currentToken = mustBe("identifier", "");
+  } else if (current()->getType() == "keyword") {
+    currentToken = mustBe("keyword", "");
+  }
+    tree->addChild(
+        new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("symbol", "(");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
