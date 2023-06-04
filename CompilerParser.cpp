@@ -122,7 +122,7 @@ ParseTree* CompilerParser::compileSubroutine() {
  */
 ParseTree* CompilerParser::compileParameterList() {
   ParseTree* tree = new ParseTree("parameterList", "");
-  while (current()->getType() != "keyword" || current()->getValue() != ",") {
+  while (current()->getType() == "keyword" || current()->getValue() == ",") {
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
     next();
