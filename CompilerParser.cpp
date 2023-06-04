@@ -136,30 +136,32 @@ ParseTree* CompilerParser::compileParameterList() {
   if (current() == NULL) {
     return tree;
   }
-
-  while (current()->getValue() == ",") {
+  while (current()->getType() == ",") {
+    currentToken = mustBe("symbol", ",");
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
-    next();
-
-    if (current()->getType() == "keyword" ||
-        current()->getType() == "identifier") {
-      currentToken = mustBe("", "");
+    if (current()->getType() == "keyword") {
+      currentToken = mustBe("keyword", "");
       tree->addChild(
           new ParseTree(currentToken->getType(), currentToken->getValue()));
-    } else {
-      break;
+    } else if (current()->getType() == "identifier") {
+      currentToken = mustBe("identifier", "");
+      tree->addChild(
+          new ParseTree(currentToken->getType(), currentToken->getValue()));
     }
 
-    currentToken = mustBe("identifier", "");
-    tree->addChild(
-        new ParseTree(currentToken->getType(), currentToken->getValue()));
+    if (current()->getType() == "identifier") {
+      currentToken = mustBe("identifier", "");
+      tree->addChild(
+          new ParseTree(currentToken->getType(), currentToken->getValue()));
+    }
 
     if (current() == NULL) {
       break;
     }
   }
-}
+  return tree;
+};
 
 /**
  * Generates a parse tree for a subroutine's body
@@ -361,4 +363,4 @@ Token* CompilerParser::mustBe(std::string expectedType,
  */
 const char* ParseException::what() {
   return "An Exception occurred while parsing!";
-}
+};
