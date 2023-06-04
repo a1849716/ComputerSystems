@@ -53,7 +53,7 @@ ParseTree* CompilerParser::compileClass() {
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   // if the next value isnt a }
-  if (current()->getValue() != "}") {
+  while (current()->getValue() != "}") {
     if (current()->getValue() == "static" || current()->getValue() == "field") {
       tree->addChild(compileClassVarDec());
     }
