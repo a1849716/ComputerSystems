@@ -73,7 +73,7 @@ ParseTree* CompilerParser::compileClass() {
  */
 ParseTree* CompilerParser::compileClassVarDec() {
   ParseTree* tree = new ParseTree("classVarDec", "");
-  currentToken = mustBe("keyword", "static");
+  currentToken = mustBe("keyword", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("keyword", "");
