@@ -89,19 +89,25 @@ ParseTree* CompilerParser::compileSubroutine() {
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("keyword", "");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("identifier", "");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("symbol", "(");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   compileParameterList();
   currentToken = mustBe("symbol", ")");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("symbol", "{");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   compileSubroutineBody();
   currentToken = mustBe("keyword", "");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
 
   throw ParseException();
   return NULL;
@@ -112,7 +118,7 @@ ParseTree* CompilerParser::compileSubroutine() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileParameterList() {
-  //while () {};
+  // while () {};
   return NULL;
 }
 
@@ -128,7 +134,8 @@ ParseTree* CompilerParser::compileSubroutineBody() {
   compileVarDec();
   compileStatements();
   currentToken = mustBe("symbol", "}");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   throw ParseException();
   return NULL;
 }
@@ -140,13 +147,17 @@ ParseTree* CompilerParser::compileSubroutineBody() {
 ParseTree* CompilerParser::compileVarDec() {
   ParseTree* tree = new ParseTree("varDec", "");
   currentToken = mustBe("keyword", "");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("keyword", "");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("identifier", "");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("symbol", ";");
-  new ParseTree(currentToken->getType(), currentToken->getValue());
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
 
   return NULL;
 }
