@@ -115,7 +115,7 @@ ParseTree* CompilerParser::compileSubroutine() {
   currentToken = mustBe("symbol", "{");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  if (current()->getValue() != ")") {
+  if (current()->getValue() != "}") {
     tree->addChild(compileSubroutineBody());
   }
   currentToken = mustBe("symbol", "}");
