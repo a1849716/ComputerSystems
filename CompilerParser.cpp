@@ -282,7 +282,7 @@ ParseTree* CompilerParser::compileLet() {
   currentToken = mustBe("symbol", "=");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  if (current()->getValue() == "skip") {
+  if (current()->getType() == "keyword" || current()->getType() == "integerConstant") {
     tree->addChild(compileExpression());
   }
   currentToken = mustBe("symbol", "");
