@@ -267,6 +267,8 @@ ParseTree* CompilerParser::compileStatements() {
     } else if (current()->getValue() == "return") {
       tree->addChild(compileReturn());
     }
+    next();
+    currentToken = current();
   }
   currentToken = mustBe("symbol", ";");
   tree->addChild(
