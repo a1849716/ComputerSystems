@@ -260,6 +260,7 @@ ParseTree* CompilerParser::compileStatements() {
       new ParseTree(currentToken->getType(), currentToken->getValue()));
 
   while (current()->getType() != ";") {
+    currentToken = mustBe("keyword", "");
     if (current()->getValue() == "let") {
       tree->addChild(compileLet());
     } else if (current()->getValue() == "do") {
@@ -267,8 +268,6 @@ ParseTree* CompilerParser::compileStatements() {
     } else if (current()->getValue() == "return") {
       tree->addChild(compileReturn());
     }
-    next();
-    currentToken = current();
   }
   currentToken = mustBe("symbol", ";");
   tree->addChild(
