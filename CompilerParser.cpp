@@ -314,7 +314,6 @@ ParseTree* CompilerParser::compileWhile() {
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   tree->addChild(compileExpression());
-  next();
   currentToken = mustBe("symbol", ")");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
