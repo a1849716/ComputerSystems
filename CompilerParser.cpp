@@ -255,6 +255,7 @@ ParseTree* CompilerParser::compileVarDec() {
  */
 ParseTree* CompilerParser::compileStatements() {
   ParseTree* tree = new ParseTree("statements", "");
+  currentToken;
 
   if (have("keyword", "let")) {
     tree->addChild(compileLet());
