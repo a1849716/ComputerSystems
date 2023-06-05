@@ -255,23 +255,14 @@ ParseTree* CompilerParser::compileVarDec() {
  */
 ParseTree* CompilerParser::compileStatements() {
   ParseTree* tree = new ParseTree("statements", "");
-  currentToken = mustBe("keyword", "");
-  tree->addChild(
-      new ParseTree(currentToken->getType(), currentToken->getValue()));
 
-  while (current()->getType() != ";") {
-    currentToken = mustBe("keyword", "");
-    if (current()->getValue() == "let") {
-      tree->addChild(compileLet());
-    } else if (current()->getValue() == "do") {
-      tree->addChild(compileDo());
-    } else if (current()->getValue() == "return") {
-      tree->addChild(compileReturn());
-    }
+  if (have("keyword", "let")) {
+    tree->addChild(compileLet());
+  } else if (have("keyword", "do")) {
+    tree->addChild(compileDo());
+  } else if (have("keyword", "return")) {
+    tree->addChild(compileReturn());
   }
-  currentToken = mustBe("symbol", ";");
-  tree->addChild(
-      new ParseTree(currentToken->getType(), currentToken->getValue()));
   return tree;
 }
 /**
@@ -350,7 +341,7 @@ ParseTree* CompilerParser::compileDo() {
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   if (current()->getValue() == "skip") {
     tree->addChild(compileExpression());
-  } else if (current()->getType() == "keyword"){
+  } else if (current()->getType() == "keyword") {
     currentToken = mustBe("keyword", "");
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
