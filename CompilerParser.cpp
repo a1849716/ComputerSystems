@@ -403,7 +403,6 @@ ParseTree* CompilerParser::compileTerm() {
     currentToken = mustBe("symbol", "(");
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
-    if
   }
   return tree;
 }
