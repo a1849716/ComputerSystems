@@ -294,8 +294,30 @@ ParseTree* CompilerParser::compileIf() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileWhile() {
-  throw ParseException();
-  return NULL;
+  ParseTree* tree = new ParseTree("whileStatement", "");
+  currentToken = mustBe("keyword", "while");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("symbol", "(");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  if (current()->getType() == "keyword") {
+    tree->addChild(
+        new ParseTree(currentToken->getType(), currentToken->getValue()));
+  }
+  currentToken = mustBe("symbol", ")");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("symbol", "{");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  if (current()->getValue() != "}") {
+    tree->addChild(compileStatements());
+  }
+  currentToken = mustBe("symbol", "}");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  return tree;
 }
 
 /**
@@ -318,7 +340,7 @@ ParseTree* CompilerParser::compileReturn() {
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   if (current()->getValue() == "skip") {
     tree->addChild(compileExpression());
-  } else if(current()->getType() == "keyword"){
+  } else if (current()->getType() == "keyword") {
     currentToken = mustBe("keyword", "");
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
