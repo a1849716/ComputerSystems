@@ -262,25 +262,22 @@ ParseTree* CompilerParser::compileStatements() { return NULL; }
 
 ParseTree* CompilerParser::compileLet() {
   ParseTree* tree = new ParseTree("letStatement", "");
-  if (mustBe("keyword", "let")) {
-    tree->addChild(new ParseTree("keyword", "let"));
-    if (mustBe("identifier", "a")) {
-      tree->addChild(new ParseTree("identifier", "a"));
-      if (mustBe("symbol", "=")) {
-        tree->addChild(new ParseTree("symbol", "="));
-        if (mustBe("keyword", "skip")) {
-          tree->addChild(new ParseTree("keyword", "skip"));
-          if (mustBe("symbol", ";")) {
-            tree->addChild(new ParseTree("symbol", ";"));
-            return tree;
-          }
-        }
-      }
-    }
-  } else {
-    throw ParseException();
-  }
-  return NULL;
+  currentToken = mustBe("keyword", "let");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("identifier", "");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("symbol", "=");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("keyword", "");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("symbol", ";");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  return tree;
 }
 
 /**
