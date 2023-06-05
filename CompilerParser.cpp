@@ -297,8 +297,42 @@ ParseTree* CompilerParser::compileLet() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileIf() {
-  throw ParseException();
-  return NULL;
+  ParseTree* tree = new ParseTree("ifStatement", "");
+  currentToken = mustBe("keyword", "if");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("symbol", "(");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  if (current()->getType() == "keyword" ||
+      current()->getType() == "integerConstant") {
+    tree->addChild(compileExpression());
+  }
+  currentToken = mustBe("symbol", ")");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("symbol", "{");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  if (current()->getValue() != "}") {
+    tree->addChild(compileStatements());
+  }
+  currentToken = mustBe("symbol", "}");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("keyword", "else");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  currentToken = mustBe("symbol", "{");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  if (current()->getValue() != "}") {
+    tree->addChild(compileStatements());
+  }
+  currentToken = mustBe("symbol", "}");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  return tree;
 }
 
 /**
@@ -313,7 +347,10 @@ ParseTree* CompilerParser::compileWhile() {
   currentToken = mustBe("symbol", "(");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  tree->addChild(compileExpression());
+  if (current()->getType() == "keyword") {
+    tree->addChild(
+        new ParseTree(currentToken->getType(), currentToken->getValue()));
+  }
   currentToken = mustBe("symbol", ")");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
@@ -379,11 +416,8 @@ ParseTree* CompilerParser::compileReturn() {
  */
 ParseTree* CompilerParser::compileExpression() {
   ParseTree* tree = new ParseTree("expression", "");
-  if (currentToken = mustBe("keyword", "skip")) {
-    tree->addChild(new ParseTree("keyword", "skip"));
-  } else if (current()->getType() == "intergerConstant") {
-    tree->addChild(compileTerm());
-  }
+  currentToken = mustBe("keyword", "skip");
+  tree->addChild(new ParseTree("keyword", "skip"));
   return tree;
 }
 
@@ -392,20 +426,8 @@ ParseTree* CompilerParser::compileExpression() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileTerm() {
-/*
-  ParseTree* tree = new ParseTree("term", "");
-  if (current()->getType() == "intergerConstant" ||
-      current()->getType() == "identifier") {
-    currentToken = mustBe("", "");
-    tree->addChild(
-        new ParseTree(currentToken->getType(), currentToken->getValue()));
-  } else {
-    currentToken = mustBe("symbol", "(");
-    tree->addChild(
-        new ParseTree(currentToken->getType(), currentToken->getValue()));
-  }
-  return tree;
-  */
+  throw ParseException();
+  return NULL;
 }
 
 /**
