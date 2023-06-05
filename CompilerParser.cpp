@@ -253,8 +253,25 @@ ParseTree* CompilerParser::compileVarDec() {
  * Generates a parse tree for a series of statements
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileStatements() { return NULL; }
-
+ParseTree* CompilerParser::compileStatements() {
+  ParseTree* tree = new ParseTree("statements", "");
+  currentToken = mustBe("statements", "");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  while (current()->getType() == ";") {
+    if (current()->getValue() == "let") {
+      tree->addChild(compileLet());
+    } else if (current()->getValue() == "do") {
+      tree->addChild(compileDo());
+    } else if (current()->getValue() == "return") {
+      tree->addChild(compileReturn());
+    }
+  }
+  currentToken = mustBe("symbol", ";");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  return tree;
+}
 /**
  * Generates a parse tree for a let statement
  * @return a ParseTree
@@ -271,8 +288,8 @@ ParseTree* CompilerParser::compileLet() {
   currentToken = mustBe("symbol", "=");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  if(current()->getValue() == "skip"){
-  tree->addChild(compileExpression());
+  if (current()->getValue() == "skip") {
+    tree->addChild(compileExpression());
   }
   currentToken = mustBe("symbol", ";");
   tree->addChild(
@@ -325,8 +342,19 @@ ParseTree* CompilerParser::compileWhile() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileDo() {
-  throw ParseException();
-  return NULL;
+  ParseTree* tree = new ParseTree("doStatement", "");
+  currentToken = mustBe("keyword", "do");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  if (current()->getValue() == "skip") {
+    currentToken = mustBe("keyword", "skip");
+    tree->addChild(
+        new ParseTree(currentToken->getType(), currentToken->getValue()));
+  }
+  currentToken = mustBe("symbol", ";");
+  tree->addChild(
+      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  return tree;
 }
 
 /**
