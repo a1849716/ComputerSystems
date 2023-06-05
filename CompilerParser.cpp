@@ -315,7 +315,7 @@ ParseTree* CompilerParser::compileDo() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileReturn() {
-  ParseTree* tree = new ParseTree("expression", "");
+  ParseTree* tree = new ParseTree("returnStatement", "");
   currentToken = mustBe("keyword", "return");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
@@ -337,7 +337,7 @@ ParseTree* CompilerParser::compileReturn() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileExpression() {
-  ParseTree* tree = new ParseTree("returnStatement", "");
+  ParseTree* tree = new ParseTree("expression", "");
   currentToken = mustBe("keyword", "skip");
   tree->addChild(new ParseTree("keyword", "skip"));
   return tree;
