@@ -255,10 +255,11 @@ ParseTree* CompilerParser::compileVarDec() {
  */
 ParseTree* CompilerParser::compileStatements() {
   ParseTree* tree = new ParseTree("statements", "");
-  currentToken = mustBe("statements", "");
+  currentToken = mustBe("keyword", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  while (current()->getType() == ";") {
+
+  while (current()->getType() != ";") {
     if (current()->getValue() == "let") {
       tree->addChild(compileLet());
     } else if (current()->getValue() == "do") {
