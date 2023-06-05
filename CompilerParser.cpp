@@ -393,6 +393,7 @@ ParseTree* CompilerParser::compileExpression() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileTerm() {
+/*
   ParseTree* tree = new ParseTree("term", "");
   if (current()->getType() == "intergerConstant" ||
       current()->getType() == "identifier") {
@@ -405,6 +406,7 @@ ParseTree* CompilerParser::compileTerm() {
         new ParseTree(currentToken->getType(), currentToken->getValue()));
   }
   return tree;
+  */
 }
 
 /**
