@@ -279,7 +279,7 @@ ParseTree* CompilerParser::compileStatements() {
 
 ParseTree* CompilerParser::compileLet() {
   ParseTree* tree = new ParseTree("letStatement", "");
-  currentToken = mustBe("keyword", "let");
+  currentToken = mustBe("keyword", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   currentToken = mustBe("identifier", "");
@@ -291,7 +291,7 @@ ParseTree* CompilerParser::compileLet() {
   if (current()->getValue() == "skip") {
     tree->addChild(compileExpression());
   }
-  currentToken = mustBe("symbol", ";");
+  currentToken = mustBe("symbol", "");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   return tree;
