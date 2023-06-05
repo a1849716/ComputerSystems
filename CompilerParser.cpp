@@ -271,9 +271,9 @@ ParseTree* CompilerParser::compileLet() {
   currentToken = mustBe("symbol", "=");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  currentToken = mustBe("keyword", "");
-  tree->addChild(
-      new ParseTree(currentToken->getType(), currentToken->getValue()));
+  if(current()->getValue() == "skip"){
+  tree->addChild(compileExpression());
+  }
   currentToken = mustBe("symbol", ";");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
