@@ -321,7 +321,7 @@ ParseTree* CompilerParser::compileReturn() {
       new ParseTree(currentToken->getType(), currentToken->getValue()));
   if (current()->getValue() == "skip") {
     tree->addChild(compileExpression());
-  } else {
+  } else if(current()->getType() == "keyword"){
     currentToken = mustBe("keyword", "");
     tree->addChild(
         new ParseTree(currentToken->getType(), currentToken->getValue()));
