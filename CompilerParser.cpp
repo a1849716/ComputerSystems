@@ -425,7 +425,6 @@ void CompilerParser::next() {
   if (!tokenList.empty()) {
     tokenList.pop_front();
   }
-  currentToken = current();
 }
 
 /**
