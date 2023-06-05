@@ -282,7 +282,8 @@ ParseTree* CompilerParser::compileLet() {
   currentToken = mustBe("symbol", "=");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  if (current()->getType() == "keyword" || current()->getType() == "integerConstant") {
+  if (current()->getType() == "keyword" ||
+      current()->getType() == "integerConstant") {
     tree->addChild(compileExpression());
   }
   currentToken = mustBe("symbol", "");
@@ -312,10 +313,8 @@ ParseTree* CompilerParser::compileWhile() {
   currentToken = mustBe("symbol", "(");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
-  if (current()->getType() == "keyword") {
-    tree->addChild(
-        new ParseTree(currentToken->getType(), currentToken->getValue()));
-  }
+  tree->addChild(compileExpression());
+  next();
   currentToken = mustBe("symbol", ")");
   tree->addChild(
       new ParseTree(currentToken->getType(), currentToken->getValue()));
@@ -381,8 +380,11 @@ ParseTree* CompilerParser::compileReturn() {
  */
 ParseTree* CompilerParser::compileExpression() {
   ParseTree* tree = new ParseTree("expression", "");
-  currentToken = mustBe("keyword", "skip");
-  tree->addChild(new ParseTree("keyword", "skip"));
+  if (currentToken = mustBe("keyword", "skip")) {
+    tree->addChild(new ParseTree("keyword", "skip"));
+  } else if (current()->getType() == "intergerConstant") {
+    tree->addChild(compileTerm());
+  }
   return tree;
 }
 
@@ -391,8 +393,19 @@ ParseTree* CompilerParser::compileExpression() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileTerm() {
-  throw ParseException();
-  return NULL;
+  ParseTree* tree = new ParseTree("term", "");
+  if (current()->getType() == "intergerConstant" ||
+      current()->getType() == "identifier") {
+    currentToken = mustBe("", "");
+    tree->addChild(
+        new ParseTree(currentToken->getType(), currentToken->getValue()));
+  } else {
+    currentToken = mustBe("symbol", "(");
+    tree->addChild(
+        new ParseTree(currentToken->getType(), currentToken->getValue()));
+    if
+  }
+  return tree;
 }
 
 /**
@@ -411,6 +424,7 @@ void CompilerParser::next() {
   if (!tokenList.empty()) {
     tokenList.pop_front();
   }
+  currentToken = current();
 }
 
 /**
